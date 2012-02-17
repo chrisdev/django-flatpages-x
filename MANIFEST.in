@@ -5,4 +5,3 @@ recursive-include flatpage_x/static *
 recursive-include flatpage_x/templates *
 recursive-include flatpage_x/fixtures *
 exclude *.wpr *.wpu .DS_Store 
-prune flatpage_x/docs/_build

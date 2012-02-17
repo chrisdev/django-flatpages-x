@@ -3,8 +3,8 @@ from django.contrib.flatpages.admin import FlatPageAdmin as StockFlatPageAdmin,F
 from django.contrib.flatpages.models import FlatPage
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from flatpage_x.models import FlatPageImage,FlatPageMeta
-from flatpage_x.settings import FPX_TEMPLATE_CHOICES
+from flatpages_x.models import FlatPageImage,FlatPageMeta
+from flatpages_x.settings import FPX_TEMPLATE_CHOICES
 
 
 
@@ -26,8 +26,8 @@ admin.site.register(FlatPageMeta, FlatPageMetaAdmin)
 class MetaInline(admin.StackedInline):
     model = FlatPageMeta
 class ImageInline(admin.TabularInline):
-    model=FlatPageImage    
-        
+    model=FlatPageImage  
+    
     
     
 class FlatPageAdmin(StockFlatPageAdmin):

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 class FlatPageMeta(models.Model):
-    flatpage=models.OneToOneField(FlatPage)
+    flatpage=models.OneToOneField(FlatPage,related_name="metadata")
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     keywords=models.CharField(blank=True,max_length=250,
@@ -39,8 +39,6 @@ class FlatPageImage(models.Model):
                 return "%s" % self.image_path
             else:
                 return "deleted image"    
-    
-    class Meta:
-        unique_together=('flatpage','slug')
+        
     
     
