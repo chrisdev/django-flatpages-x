@@ -11,7 +11,7 @@ class FlatPageMeta(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     keywords=models.CharField(blank=True,max_length=250,
-                              help_text= _("Seperate keywords by commas") )
+                              help_text= _("Separate keywords by commas") )
     description=models.TextField(verbose_name=_('meta description'),blank=True)
     
     
@@ -27,11 +27,7 @@ class FlatPageMeta(models.Model):
     
 class FlatPageImage(models.Model):
     flatpage=models.ForeignKey(FlatPage, related_name='images')
-    image_path = models.ImageField(upload_to="flatpage/%Y/%m/%d")
-    slug=models.SlugField(max_length=100)
-    caption=models.CharField(max_length=120,blank=True)
-    timestamp = models.DateTimeField(default=datetime.now, editable=False)
-    
+    image_path = models.ImageField(upload_to="flatpage/%Y/%m/%d") 
     url = models.CharField(blank=True,max_length=150)
     
     def __unicode__(self):
@@ -41,4 +37,26 @@ class FlatPageImage(models.Model):
                 return "deleted image"    
         
     
+class Revision(models.Model):
+    """
+    Note the revision model stores the markdown while the 
+    flapage contents will store the redered html
+    """
+    flatpage = models.ForeignKey(FlatPage, related_name="revisions")
+    title = models.CharField(max_length=90)
+    content_source= models.TextField() 
     
+    updated = models.DateTimeField(default=datetime.now)
+    published = models.DateTimeField(null=True, blank=True)
+        
+    view_count = models.IntegerField(default=0, editable=False)
+        
+    def __unicode__(self):
+            return 'Revision %s for %s' % (self.updated.strftime('%Y%m%d-%H%M'), self.flatpage)
+        
+    def inc_views(self):
+            self.view_count += 1
+            self.save()    
+    
+    
+               

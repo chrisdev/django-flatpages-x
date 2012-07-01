@@ -36,7 +36,7 @@ def get_images(parser,token):
 class ImagesNode(template.Node):
     def __init__(self,condition,slug_list,context_var):
         self.condition=condition
-        self.slug_list=slug_list
+        self.slug_list=slug_list.split
         self.context_var=context_var
     def render(self,context):
         fp=context.get('flatpage')
