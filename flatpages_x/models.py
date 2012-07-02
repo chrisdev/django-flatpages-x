@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.flatpages.models import FlatPage
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
-
+from os.path import split
 
 # Create your models here.
 class FlatPageMeta(models.Model):
@@ -32,7 +32,8 @@ class FlatPageImage(models.Model):
     
     def __unicode__(self):
             if self.pk is not None:
-                return "%s" % self.image_path
+                img_file= split(self.image_path.url)[1]
+                return "[%s] %s" % (self.pk,img_file)
             else:
                 return "deleted image"    
         
