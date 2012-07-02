@@ -17,7 +17,7 @@ class CustomFlatPageForm(FlatpageForm):
                                     help_text=_("Sepcify a template for displaying your content")
                                 )
     
-    content_md = forms.CharField(label="My Content", widget = forms.Textarea()) 
+    content_md = forms.CharField(label="Content", widget = forms.Textarea()) 
     content = forms.CharField(
                widget = forms.Textarea(
                ),
@@ -35,7 +35,6 @@ class CustomFlatPageForm(FlatpageForm):
             latest_revision= None  
             
         if latest_revision:
-            print "wtf", latest_revision.content_source
             self.fields["content_md"].initial= latest_revision.content_source
             
             
@@ -71,7 +70,7 @@ class ImageInline(admin.TabularInline):
     
 class FlatPageAdmin(StockFlatPageAdmin):
     fieldsets= (
-        (None, {'fields': ('url', 'title', 'content_md', 'content','template_name',)}),
+        (None, {'fields': ('url', 'title', 'content_md','template_name',)}),
         (_('Advanced options'), {'classes': ('collapse',), 
         'fields': ('enable_comments', 'registration_required','sites' )}),
     )
