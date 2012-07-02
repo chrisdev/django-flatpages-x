@@ -47,7 +47,6 @@ class Revision(models.Model):
     content_source= models.TextField() 
     
     updated = models.DateTimeField(default=datetime.now)
-    published = models.DateTimeField(null=True, blank=True)
         
     view_count = models.IntegerField(default=0, editable=False)
         

@@ -3,12 +3,12 @@ from django.contrib.flatpages.admin import FlatPageAdmin as StockFlatPageAdmin,F
 from django.contrib.flatpages.models import FlatPage
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from flatpages_x.models import FlatPageImage,FlatPageMeta
+from flatpages_x.models import FlatPageImage,FlatPageMeta,Revision
 from flatpages_x.settings import FPX_TEMPLATE_CHOICES
 from django.utils.functional import curry
 from flatpages_x.settings import PARSER
 from flatpages_x.utils import load_path_attr
-
+from datetime import datetime
 
 
 class CustomFlatPageForm(FlatpageForm):
@@ -17,14 +17,42 @@ class CustomFlatPageForm(FlatpageForm):
                                     help_text=_("Sepcify a template for displaying your content")
                                 )
     
+    content_md = forms.CharField(label="My Content", widget = forms.Textarea()) 
+    content = forms.CharField(
+               widget = forms.Textarea(
+               ),
+               required=False,
+           ) 
+    
+    def __init__(self,*args,**kwargs):
+        
+        super(CustomFlatPageForm, self).__init__(*args, **kwargs)      
+        fp = self.instance        
+        
+        try:
+            latest_revision=fp.revisions.order_by("-updated")[0]
+        except IndexError:
+            latest_revision= None  
+            
+        if latest_revision:
+            print "wtf", latest_revision.content_source
+            self.fields["content_md"].initial= latest_revision.content_source
+            
+            
     def save(self):
         fp= super(CustomFlatPageForm, self).save(commit=False)
         render_func = curry(load_path_attr(PARSER[0],**PARSER[1]))
-        fp.content= render_func(self.cleaned_data["content"])
+        fp.content= render_func(self.cleaned_data["content_md"])
         fp.save()
-        return fp 
-      
-      
+         
+        r=Revision()
+        r.flatpage=fp
+        r.title=fp.title
+        r.content_source=self.cleaned_data["content_md"]
+        r.updated=datetime.now()
+        r.save()
+        return fp
+    
 class FlatPageMetaAdmin(admin.ModelAdmin):
     list_display = ('flatpage','created',)
     list_filter = ('flatpage',)
@@ -43,7 +71,7 @@ class ImageInline(admin.TabularInline):
     
 class FlatPageAdmin(StockFlatPageAdmin):
     fieldsets= (
-        (None, {'fields': ('url', 'title', 'content', 'template_name',)}),
+        (None, {'fields': ('url', 'title', 'content_md', 'content','template_name',)}),
         (_('Advanced options'), {'classes': ('collapse',), 
         'fields': ('enable_comments', 'registration_required','sites' )}),
     )
@@ -59,3 +87,4 @@ class FlatPageAdmin(StockFlatPageAdmin):
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
 admin.site.register(FlatPageImage)
+admin.site.register(Revision)
