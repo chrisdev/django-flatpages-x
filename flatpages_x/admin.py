@@ -9,7 +9,12 @@ from django.utils.functional import curry
 from flatpages_x.settings import PARSER
 from flatpages_x.utils import load_path_attr
 from datetime import datetime
-
+#use markitup if available
+try:
+  from markitup.widgets import AdminMarkItUpWidget as content_widget
+except ImportError:
+   content_widget=forms.Textarea
+   
 
 class CustomFlatPageForm(FlatpageForm):
     template_name=forms.ChoiceField(choices=FPX_TEMPLATE_CHOICES, required=False,
@@ -17,7 +22,7 @@ class CustomFlatPageForm(FlatpageForm):
                                     help_text=_("Sepcify a template for displaying your content")
                                 )
     
-    content_md = forms.CharField(label="Content", widget = forms.Textarea()) 
+    content_md = forms.CharField(label="Content", widget = content_widget()) 
     content = forms.CharField(
                widget = forms.Textarea(
                ),
