@@ -3,14 +3,11 @@ Django Flatpage Extensions
 ===============================
 An extension to django.contrib.flatpages to provide for 
  
-- Support markdown and other similar markup formats. 
-   You can also provide you own markup  format parser.
+- Support markdown and other similar markup formats. You can also provide you own markup  format parser.
  
-- Optional support for the excellent markTtUp jquery editor
-   This requires the installation django-markitup.
+- Optional support for the excellent markTtUp jquery editor. This requires the installation django-markitup.
    
-- Easy inclusion of images in flatpages. Note Admin image thumbnails
-   require the installation  of sorl thumbnails.
+- Easy inclusion of images in flatpages. Note Admin image thumbnails require the installation  of sorl thumbnails.
    
 - The inclusion of metatag keywords and descriptions in flatpages.
  
