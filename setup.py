@@ -1,29 +1,13 @@
+import codecs
+import os
+import sys
+
 from setuptools import setup, find_packages
 
-LONG_DESCRIPTION = """
-===============================
-Django Flatpage Extensions
-===============================
-Extensions to django.contrib.flatpages to allow for features such as meta tags and descriptions
-
-Authors
---------
-
-Quickstart
------------
+def read(fname):
+    return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
-Forms
------
-
-
- 
-Todo / Issues
---------------
-
-
-
-"""
 PACKAGE = "flatpages_x"
 NAME = "django-flatpages-x"
 DESCRIPTION = "Some Basic extensions for django-contrib-flatpages"
@@ -37,7 +21,7 @@ setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=LONG_DESCRIPTION,
+    long_description=read("README.rst"),
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license="MIT",
