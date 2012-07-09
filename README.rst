@@ -3,21 +3,18 @@ Django Flatpage Extensions
 ===============================
 An extension to django.contrib.flatpages to provide for 
  
-- Support markdown and other similar markup formats. 
-   You can alos provide you own markup  format parser.
+- Support markdown and other similar markup formats. You can also provide you own markup  format parser.
  
--  Optional support for the excellent markTtUp jquey editor
-   This requires the installation django-markitup.
+- Optional support for the excellent markTtUp jquery editor. This requires the installation django-markitup.
    
-- Easy inclusion of images in flatpages. Note Admin image thumbnails
-   require the installation  of sorl thumbnails
+- Easy inclusion of images in flatpages. Note Admin image thumbnails require the installation  of sorl thumbnails.
    
--  The inclusion of metatag keywords and descriptions in flatpages
+- The inclusion of metatag keywords and descriptions in flatpages.
  
-- Some support for revisions
+- Some support for revisions.
 
 Migrating you data to flapages_x should not be difficult since the
-data which currently in the contrib Flatpage model (content, titles) is not affected. 
+data which currently in the contrib.Flatpage model (content, titles) is not affected. 
 Your templates will still utilize the  *{{flatpage.content}}* and *{{flatpage.body}}* 
 context variables.
 Once you installed flatpages_x the markdown formatted content
@@ -30,7 +27,7 @@ the Flatpage.content field
 Contributors
 -------------
 * `Christopher Clarke <https://github.com/chrisdev>`_
-* `Lendl Smith <https://github.com/ilendl2>`_
+* `Lendl R Smith <https://github.com/ilendl2>`_
 
 
 
@@ -52,7 +49,7 @@ Inside your project run::
     
 **markItUp support**
    
-If you want to use the excellent markItUp! editor widget. Install django-markItUp
+If you want to use the excellent markItUp! editor widget. Install django-markitup
    
     (mysite-env)$ pip install django-markitup
     
