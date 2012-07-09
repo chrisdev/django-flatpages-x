@@ -27,7 +27,7 @@ the Flatpage.content field
 Contributors
 -------------
 * `Christopher Clarke <https://github.com/chrisdev>`_
-* `Lendl Smith <https://github.com/ilendl2>`_
+* `Lendl R Smith <https://github.com/ilendl2>`_
 
 
 
