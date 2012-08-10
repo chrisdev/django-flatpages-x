@@ -14,20 +14,20 @@ An extension to django.contrib.flatpages to provide
  
 - Content revisions
 
-Migrating your existing flatpages to flapages_x should not be difficult since the
-data which currently in the contrib Flatpage model (content, titles) is not affected. 
+Migrating you data to flapages_x should not be difficult since the
+data which currently in the contrib.Flatpage model (content, titles) is not affected. 
 Your templates will still utilize the  *{{flatpage.content}}* and *{{flatpage.body}}* 
 context variables.
-Once you install flatpages_x, the markdown content
+Once you install flatpages_x, the Markdown
 is actually stored in the related Revisions model. 
-When you save a flatpage, this will be rendered to html via the configurable markdown 
+When you save a flatpage, this will be rendered as html via the markdown 
 parser and saved to the Flatpage.content field
  
 
 Contributors
 ============
 * `Christopher Clarke <https://github.com/chrisdev>`_
-* `Lendl Smith <https://github.com/ilendl2>`_
+* `Lendl R Smith <https://github.com/ilendl2>`_
 
 Quickstart
 ===========
@@ -58,6 +58,7 @@ should is visible in the flatpages Admin form which will now contains an inline 
 markItUp support
 ------------------
 If you want to use the excellent markItUp! editor widget. Install django-markItUp::
+
    
     (mysite-env)$ pip install django-markitup
     
