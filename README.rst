@@ -1,58 +1,63 @@
 ===============================
 Django Flatpage Extensions
 ===============================
-An extension to django.contrib.flatpages to provide for 
- 
-- Support markdown and other similar markup formats. 
-   You can alos provide you own markup  format parser.
- 
--  Optional support for the excellent markTtUp jquey editor
-   This requires the installation django-markitup.
-   
-- Easy inclusion of images in flatpages. Note Admin image thumbnails
-   require the installation  of sorl thumbnails
-   
--  The inclusion of metatag keywords and descriptions in flatpages
- 
-- Some support for revisions
 
-Migrating you data to flapages_x should not be difficult since the
+An extension to django.contrib.flatpages to provide 
+ 
+- Better support for markdown and other similar markup formats. We provide support for Markdown but you can write your own parser to support rst or creole.
+ 
+- Optional support for the excellent markTtUp jquey editor This requires the installation django-markitup.
+   
+- Easy inclusion of images in flatpages. Viewing Admin image thumbnails requires the installation  of sorl thumbnails
+   
+- The inclusion of HTML metatags such as keywords and descriptions in flatpages
+ 
+- Content revisions
+
+Migrating your existing flatpages to flapages_x should not be difficult since the
 data which currently in the contrib Flatpage model (content, titles) is not affected. 
 Your templates will still utilize the  *{{flatpage.content}}* and *{{flatpage.body}}* 
 context variables.
-Once you installed flatpages_x the markdown formatted content
-is actually be stored separately in a related Revisions model. 
-On saving, this will be rendered to html via the configurable markdown and saved to
-the Flatpage.content field
+Once you install flatpages_x, the markdown content
+is actually stored in the related Revisions model. 
+When you save a flatpage, this will be rendered to html via the configurable markdown 
+parser and saved to the Flatpage.content field
  
- 
- 
+
 Contributors
--------------
+============
 * `Christopher Clarke <https://github.com/chrisdev>`_
 * `Lendl Smith <https://github.com/ilendl2>`_
 
-
-
 Quickstart
------------
+===========
 Create a virtual environment for your project and activate it::
 
     $ virtualenv mysite-env
     $ source mysite-env/bin/activate
     (mysite-env)$
     
-Next install flatpages_x.::
+Next install flatpages_x. ::
 
-    (mysite-env)$ pip install git+https://github.com/chrisdev/django-flatpages-x.git
+    (mysite-env)$ pip install django-flatpages-x
 
 Inside your project run::
 
     (mysite-env)$ python manage.py syncdb
+ 
+Django-flatpages-x comes with support for `Markdown <http://daringfireball.net/projects/markdown/syntax/>`_
+You can also associate and display images with your flatpages. 
+To include your images in your content using reference-style image syntax looks like this ::
+
+     ![Atl text][image.pk]
     
-**markItUp support**
-   
-If you want to use the excellent markItUp! editor widget. Install django-markItUp
+Where [image.pk] is the primary key of image the that you want to include. 
+The primary key of the image 
+should is visible in the flatpages Admin form which will now contains an inline image form
+    
+markItUp support
+------------------
+If you want to use the excellent markItUp! editor widget. Install django-markItUp::
    
     (mysite-env)$ pip install django-markitup
     
@@ -66,12 +71,13 @@ You need a few configuration steps
      MARKITUP_SKIN = 'markitup/skins/markitup' 
      MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True})
 
-3.You need to use the AJAX-based preview for the admin widget
+3. You need to use the AJAX-based preview for the admin widget::
 
      url(r'^markitup/', include('markitup.urls')) in your root URLconf.
      
-**Admin thumbnails**    
 
+Admin thumbnails    
+---------------- 
 If you want view admin image thumbnails install sorl thumbnails
 
     (mysite-env)$ pip install sorl-thumbnails
@@ -82,6 +88,25 @@ If you want view admin image thumbnails install sorl thumbnails
    database::
 
     python manage.py syncdb
+    
+Markup Support
+---------------
+Django-flatpages-x come with a simple parser that supports Markdown. However,
+you can supply your own parser by setting the value for *FLATPAGES_X_PARSER* 
+to settings.py. So if you want to use a parser ``myparser_parser`` simply add 
+the following to you settings ::
+
+  FLATPAGES_X_PARSER= ["flatpages_x.myparser_parser.parse", {}]
+     
+     
+.. end-here
+
+Documentation
+--------------
+
+See the `full documentation`_ for more details.
+
+.. _full documentation: http://django-flatpages-x.readthedocs.org/
 
 
 

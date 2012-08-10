@@ -5,11 +5,6 @@ from flatpages_x.models import FlatPageImage
 img_ref_re=re.compile(IMAGE_REFERENCE_RE)
 
 def parse(text):
-    """
-    This is a test of md references
-    Ok now the ids
-    ![Alt text 2][1]
-    """
     md = markdown.Markdown(['codehilite'])
     
     for iref in re.findall(img_ref_re,text):
