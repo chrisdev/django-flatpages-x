@@ -14,7 +14,12 @@ try:
   from markitup.widgets import AdminMarkItUpWidget as content_widget
 except ImportError:
    content_widget=forms.Textarea
-   
+#thumbnails
+try:
+    from sorl.thumbnail import admin as thumbs
+except ImportError:
+    thumbs = None
+
 
 class CustomFlatPageForm(FlatpageForm):
     template_name=forms.ChoiceField(choices=FPX_TEMPLATE_CHOICES, required=False,
@@ -70,6 +75,11 @@ class MetaInline(admin.StackedInline):
     model = FlatPageMeta
 class ImageInline(admin.TabularInline):
     model=FlatPageImage  
+
+if thumbs is not None:
+    # Add the mixin to the MRO
+    class ImageInline(thumbs.AdminImageMixin, ImageInline):
+        pass
     
     
     

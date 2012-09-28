@@ -5,6 +5,13 @@ from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 from os.path import split
 
+# Thumbnailability
+try:
+    from sorl.thumbnail import ImageField
+except ImportError:
+    ImageField = models.ImageField
+
+
 # Create your models here.
 class FlatPageMeta(models.Model):
     flatpage=models.OneToOneField(FlatPage,related_name="metadata")
@@ -27,7 +34,7 @@ class FlatPageMeta(models.Model):
     
 class FlatPageImage(models.Model):
     flatpage=models.ForeignKey(FlatPage, related_name='images')
-    image_path = models.ImageField(upload_to="flatpage/%Y/%m/%d") 
+    image_path = ImageField(upload_to="flatpage/%Y/%m/%d") 
     url = models.CharField(blank=True,max_length=150)
     
     def __unicode__(self):
