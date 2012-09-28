@@ -12,7 +12,7 @@ def parse(text):
         try:
             image=FlatPageImage.objects.get(pk=int(img_id))
             md.references[img_id]=(image.image_path.url,'')
-        except Image.DoesNotExist:
+        except FlatPageImage.DoesNotExist:
             pass
         
     return md.convert(text)
