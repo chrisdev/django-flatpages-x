@@ -37,9 +37,11 @@ Create a virtual environment for your project and activate it::
     $ source mysite-env/bin/activate
     (mysite-env)$
     
-Next install flatpages_x. ::
+Next install ``flatpages_x`` ::
 
     (mysite-env)$ pip install django-flatpages-x
+
+Add ``flatpages_x`` to your INSTALLED_APPS setting.
 
 Inside your project run::
 
