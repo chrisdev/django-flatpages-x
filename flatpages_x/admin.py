@@ -46,14 +46,16 @@ class CustomFlatPageForm(FlatpageForm):
             
         if latest_revision:
             self.fields["content_md"].initial= latest_revision.content_source
-            
-            
+
     def save(self):
-        fp= super(CustomFlatPageForm, self).save(commit=False)
-        render_func = curry(load_path_attr(PARSER[0],**PARSER[1]))
-        fp.content= render_func(self.cleaned_data["content_md"])
+        fp = super(CustomFlatPageForm, self).save(commit=False)
+        if PARSER:
+            render_func = curry(load_path_attr(PARSER[0], **PARSER[1]))
+            fp.content = render_func(self.cleaned_data["content_md"])
+        else:
+            fp.content = self.cleaned_data["content_md"]
         fp.save()
-         
+
         r=Revision()
         r.flatpage=fp
         r.title=fp.title
