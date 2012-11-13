@@ -4,25 +4,24 @@ Django Flatpage Extensions
 
 An extension to django.contrib.flatpages to provide 
  
-- Better support for markdown and other similar markup formats. We provide support for Markdown but you can write your own parser to support rst or creole.
+- Better support for **markdown** and other similar markup formats. We provide support for Markdown but you can write your own parser to support rst or creole.
  
-- Optional support for the excellent markTtUp jquey editor This requires the installation django-markitup.
-   
-- Easy inclusion of images in flatpages. Viewing Admin image thumbnails requires the installation  of sorl thumbnails
-   
-- The inclusion of HTML metatags such as keywords and descriptions in flatpages
+- Optional support for the excellent **markItUp** jquery editor. This requires the installation django-markitup.
  
-- Content revisions
+- Easy inclusion of images in flatpages. Viewing Admin **image thumbnails** requires the installation of sorl thumbnails.
+ 
+- The inclusion of HTML **metatags** such as keywords and descriptions in flatpages.
+ 
+- Content **revisions**.
 
 Migrating you data to flapages_x should not be difficult since the
 data which currently in the contrib.Flatpage model (content, titles) is not affected. 
 Your templates will still utilize the  *{{flatpage.content}}* and *{{flatpage.body}}* 
 context variables.
-Once you install flatpages_x, the Markdown
+Once you install flatpages_x, the Markdown 
 is actually stored in the related Revisions model. 
 When you save a flatpage, this will be rendered as html via the markdown 
 parser and saved to the Flatpage.content field
- 
 
 Contributors
 ============
@@ -99,8 +98,7 @@ you can supply your own parser by setting the value for *FLATPAGES_X_PARSER*
 to settings.py. So if you want to use a parser ``myparser_parser`` simply add 
 the following to you settings ::
 
-  FLATPAGES_X_PARSER= ["flatpages_x.myparser_parser.parse", {}]
-     
+    FLATPAGES_X_PARSER= ["flatpages_x.markdown_parser.parse", {}]
      
 .. end-here
 
@@ -110,9 +108,4 @@ Documentation
 See the `full documentation`_ for more details.
 
 .. _full documentation: http://django-flatpages-x.readthedocs.org/
-
-
-
-
-
 
