@@ -6,9 +6,9 @@ An extension to django.contrib.flatpages to provide
  
 - Better support for **markdown** and other similar markup formats. We provide support for Markdown but you can write your own parser to support rst or creole.
  
-- Optional support for the excellent **markItUp** jquery editor. This requires the installation django-markitup.
+- Optional support for the excellent **markItUp** jquery editor. This requires the installation ``django-markitup``.
  
-- Easy inclusion of images in flatpages. Viewing Admin **image thumbnails** requires the installation of sorl thumbnails.
+- Easy inclusion of images in flatpages. Viewing Admin **image thumbnails** requires the installation of ``sorl-thumbnail``.
  
 - The inclusion of HTML **metatags** such as keywords and descriptions in flatpages.
  
@@ -27,6 +27,7 @@ Contributors
 ============
 * `Christopher Clarke <https://github.com/chrisdev>`_
 * `Lendl R Smith <https://github.com/ilendl2>`_
+* `Mikhail Andreev <https://github.com/adw0rd>`_
 
 Quickstart
 ===========
@@ -60,7 +61,6 @@ markItUp support
 ------------------
 If you want to use the excellent markItUp! editor widget. Install django-markItUp::
 
-   
     (mysite-env)$ pip install django-markitup
     
 You need a few configuration steps
@@ -75,14 +75,16 @@ You need a few configuration steps
 
 3. You need to use the AJAX-based preview for the admin widget::
 
-     url(r'^markitup/', include('markitup.urls')) in your root URLconf.
+     url(r'^markitup/', include('markitup.urls'))
+
+in your root URLconf.
      
 
 Admin thumbnails    
 ---------------- 
-If you want view admin image thumbnails install sorl thumbnails
+If you want view admin image thumbnails install sorl-thumbnail::
 
-    (mysite-env)$ pip install sorl-thumbnails
+    (mysite-env)$ pip install sorl-thumbnail
     
 1. Add ``sorl.thumbnail`` to your ``settings.INSTALLED_APPS``.
 2. Configure your ``settings``
