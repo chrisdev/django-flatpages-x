@@ -1,7 +1,6 @@
 include MANIFEST.in
 include README.rst
 recursive-include docs *
-recursive-include flatpages_x/static *
 recursive-include flatpages_x/templates *
 recursive-include flatpages_x/fixtures *
 exclude *.wpr *.wpu .DS_Store 

@@ -1,8 +1,8 @@
 import codecs
 import os
-import sys
 
 from setuptools import setup, find_packages
+
 
 def read(fname):
     return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -26,7 +26,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="MIT",
     url=URL,
-    packages=find_packages(exclude=["*.wpr","*.wpu"]),
+    packages=find_packages(exclude=["*.wpr", "*.wpu"]),
     include_package_data=True,
     classifiers=[
         "Development Status :: 3 - Alpha",
