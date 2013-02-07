@@ -38,9 +38,9 @@ setup(
         "Framework :: Django",
     ],
     zip_safe=False,
-    install_requires = (
-        django-filer=>.9.3
-        Django>=1.4
+    install_requires=[
+        'Django>=1.3,<1.5',
+        'django-filer>=0.9.3'
 
-        ),
+    ],
 )
