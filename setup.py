@@ -38,4 +38,9 @@ setup(
         "Framework :: Django",
     ],
     zip_safe=False,
+    install_requires = (
+        django-filer=>.9.3
+        Django>=1.4
+
+        ),
 )
