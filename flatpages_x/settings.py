@@ -1,6 +1,10 @@
 from django.conf import settings
 
-PARSER = getattr(settings, 'FLATPAGES_X_PARSER', None)
+PARSER = getattr(
+                settings, 'FLATPAGES_X_PARSER', [
+                "flatpages_x.markdown_parser.parse",{}
+                ]
+    )
 DEFAULT_TEMPLATE_CHOICES = [
     ('flatpages/default.html', 'Text Only', ),
 ]

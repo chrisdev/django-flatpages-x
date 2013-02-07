@@ -4,13 +4,9 @@ from datetime import datetime
 from django.db import models
 from django.contrib.flatpages.models import FlatPage
 from django.utils.translation import ugettext_lazy as _
-
-# Thumbnailability
-try:
-    from sorl.thumbnail import ImageField
-except ImportError:
-    ImageField = models.ImageField
-
+from filer.fields.image import FilerImageField
+from filer.fields.file import FilerFileField
+from django.utils.encoding import smart_unicode
 
 # Create your models here.
 class FlatPageMeta(models.Model):
@@ -32,15 +28,36 @@ class FlatPageMeta(models.Model):
 
 class FlatPageImage(models.Model):
     flatpage = models.ForeignKey(FlatPage, related_name='images')
-    image_path = ImageField(upload_to="flatpage/%Y/%m/%d")
-    url = models.CharField(blank=True, max_length=150)
+    image = FilerImageField(null=True, blank=True)
 
     def __unicode__(self):
-        if self.pk is not None:
-            img_file = split(self.image_path.url)[1]
-            return "[%s] %s" % (self.pk, img_file)
+        if not self.image.default_caption:
+            ref_txt = smart_unicode("![Your Alt Text][%s]" % (self.pk))
         else:
-            return "deleted image"
+            ref_text = smart_unicode("![%s][%s]" % (
+                self.image.default_caption,
+                self.pk)
+            )
+        return ref_txt
+
+    class Meta:
+        verbose_name = "Image"
+        verbose_name_plural = "Image"
+
+class FlatPageAttachment(models.Model):
+
+    flatpage = models.ForeignKey(FlatPage, related_name="attachments",
+                                blank=True, null=True)
+    attachment = FilerFileField(null=True, blank=True)
+
+    def __unicode__(self):
+
+        return "[%s] [%s]" % (self.attachment.label, self.pk)
+
+    class Meta:
+        verbose_name = "Attachment"
+        verbose_name_plural = "Attachments"
+
 
 
 class Revision(models.Model):

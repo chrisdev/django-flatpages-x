@@ -2,15 +2,16 @@ from datetime import datetime
 
 from django import forms
 from django.contrib import admin
-from django.contrib.flatpages.admin import FlatPageAdmin as StockFlatPageAdmin, FlatpageForm
+from django.contrib.flatpages.admin import FlatPageAdmin as StockFlatPageAdmin
+from django.contrib.flatpages.admin import FlatpageForm
 from django.contrib.flatpages.models import FlatPage
 from django.utils.translation import ugettext_lazy as _
 from django.utils.functional import curry
 
-from flatpages_x.models import FlatPageImage, FlatPageMeta, Revision
-from flatpages_x.settings import FPX_TEMPLATE_CHOICES
-from flatpages_x.settings import PARSER
-from flatpages_x.utils import load_path_attr
+from .models import FlatPageImage, FlatPageMeta, FlatPageAttachment, Revision
+from .settings import FPX_TEMPLATE_CHOICES
+from .settings import PARSER
+from .utils import load_path_attr
 
 # Use markitup if available
 try:
@@ -19,10 +20,6 @@ except ImportError:
     content_widget = forms.Textarea
 
 # Thumbnails
-try:
-    from sorl.thumbnail import admin as thumbs
-except ImportError:
-    thumbs = None
 
 
 class CustomFlatPageForm(FlatpageForm):
@@ -36,6 +33,7 @@ class CustomFlatPageForm(FlatpageForm):
     content = forms.CharField(widget=forms.Textarea(), required=False)
 
     def __init__(self, *args, **kwargs):
+
         super(CustomFlatPageForm, self).__init__(*args, **kwargs)
         fp = self.instance
 
@@ -50,7 +48,7 @@ class CustomFlatPageForm(FlatpageForm):
     def save(self):
         fp = super(CustomFlatPageForm, self).save(commit=False)
 
-        if PARSER:
+        if PARSER and PARSER[0] is not None:
             render_func = curry(load_path_attr(PARSER[0], **PARSER[1]))
             fp.content = render_func(self.cleaned_data["content_md"])
         else:
@@ -85,21 +83,27 @@ class MetaInline(admin.StackedInline):
 class ImageInline(admin.TabularInline):
     model = FlatPageImage
 
-if thumbs is not None:
-    # Add the mixin to the MRO
-    class ImageInline(thumbs.AdminImageMixin, ImageInline):
-        pass
+class AttachmentInline(admin.StackedInline):
+    model = FlatPageAttachment
+
+# if thumbs is not None:
+#     # Add the mixin to the MRO
+#     class ImageInline(thumbs.AdminImageMixin, ImageInline):
+#         pass
 
 
 class FlatPageAdmin(StockFlatPageAdmin):
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content_md', 'template_name',)}),
-        (_('Advanced options'), {'classes': ('collapse',),
-                                 'fields': ('enable_comments', 'registration_required', 'sites')}),
+        (_('Advanced options'), {'classes': ('expand',),
+                                 'fields': ('enable_comments',
+                                 'registration_required', 'sites')}),
     )
     form = CustomFlatPageForm
     inlines = [MetaInline,
                ImageInline,
+               AttachmentInline,
+
                ]
 
     def save_form(self, request, form, change):
