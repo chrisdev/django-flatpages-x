@@ -31,14 +31,10 @@ class FlatPageImage(models.Model):
     image = FilerImageField(null=True, blank=True)
 
     def __unicode__(self):
-        if not self.image.default_caption:
-            ref_txt = smart_unicode("![Your Alt Text][%s]" % (self.pk))
-        else:
-            ref_text = smart_unicode("![%s][%s]" % (
-                self.image.default_caption,
-                self.pk)
-            )
-        return ref_txt
+
+        return "![%s][%s]" % (self.image.label,
+            self.image.original_filename
+        )
 
     class Meta:
         verbose_name = "Image"
@@ -46,13 +42,18 @@ class FlatPageImage(models.Model):
 
 class FlatPageAttachment(models.Model):
 
-    flatpage = models.ForeignKey(FlatPage, related_name="attachments",
-                                blank=True, null=True)
+    flatpage = models.ForeignKey(FlatPage,
+        related_name="attachments",
+        blank=True, null=True
+    )
+
     attachment = FilerFileField(null=True, blank=True)
 
     def __unicode__(self):
 
-        return "[%s] [%s]" % (self.attachment.label, self.pk)
+        return "[%s] [%s]" % (self.attachment.label,
+            self.attachment.original_filename
+        )
 
     class Meta:
         verbose_name = "Attachment"

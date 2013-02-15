@@ -2,6 +2,7 @@ import re
 import markdown
 from markdown.inlinepatterns import IMAGE_REFERENCE_RE, REFERENCE_RE
 from .models import FlatPageImage, FlatPageAttachment
+from filer.models import File
 from django.core.exceptions import ObjectDoesNotExist
 img_ref_re = re.compile(IMAGE_REFERENCE_RE)
 reference_re = re.compile(REFERENCE_RE)
@@ -24,17 +25,16 @@ def parse(text):
         img_id = iref[7]
         alt_txt = iref[0]
         try:
-            fp_img= FlatPageImage.objects.get(pk=int(img_id))
-            md.references[img_id] = (fp_img.image.url, alt_txt)
+            fp_img= File.objects.get(original_filename=img_id)
+            md.references[img_id] = (fp_img.url, alt_txt)
         except ObjectDoesNotExist:
-            pass
-
+           pass
     for lref in re.findall(reference_re, text):
         a_id = lref[7]
         alt_txt = lref[0]
         try:
-            fa = FlatPageAttachment.objects.get(pk=id(a_id))
-            md.references[a_id] = (fa.attachment.url, alt_txt)
+            fa = File.objects.get(original_filename=(a_id))
+            md.references[a_id] = (fa.url, alt_txt)
         except ObjectDoesNotExist:
             pass
 
