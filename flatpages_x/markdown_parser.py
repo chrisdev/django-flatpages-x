@@ -33,7 +33,7 @@ def parse(text):
         a_id = lref[7]
         alt_txt = lref[0]
         try:
-            fa = FlatPageAttachment.objects.get(pk=id(a_id))
+            fa = FlatPageAttachment.objects.get(pk=int(a_id))   
             md.references[a_id] = (fa.attachment.url, alt_txt)
         except ObjectDoesNotExist:
             pass
