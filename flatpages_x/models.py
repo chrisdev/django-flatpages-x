@@ -33,7 +33,7 @@ class FlatPageImage(models.Model):
     def __unicode__(self):
 
         return "![%s][%s]" % (self.image.label,
-            self.image.original_filename
+            self.image.pk
         )
 
     class Meta:
@@ -52,7 +52,7 @@ class FlatPageAttachment(models.Model):
     def __unicode__(self):
 
         return "[%s] [%s]" % (self.attachment.label,
-            self.attachment.original_filename
+            self.attachment.pk
         )
 
     class Meta:

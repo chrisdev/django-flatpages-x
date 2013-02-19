@@ -25,15 +25,16 @@ def parse(text):
         img_id = iref[7]
         alt_txt = iref[0]
         try:
-            fp_img= File.objects.get(original_filename=img_id)
+            fp_img= File.objects.get(pk=img_id)
             md.references[img_id] = (fp_img.url, alt_txt)
         except ObjectDoesNotExist:
            pass
+   
     for lref in re.findall(reference_re, text):
         a_id = lref[7]
         alt_txt = lref[0]
         try:
-            fa = File.objects.get(original_filename=(a_id))
+            fa = File.objects.get(pk=a_id)
             md.references[a_id] = (fa.url, alt_txt)
         except ObjectDoesNotExist:
             pass
