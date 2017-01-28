@@ -1,11 +1,19 @@
-import codecs
 import os
 
 from setuptools import setup, find_packages
 
 
-def read(fname):
-    return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
+def long_desc(root_path):
+    FILES = ['README.rst', ]
+    for filename in FILES:
+        filepath = os.path.realpath(os.path.join(root_path, filename))
+        if os.path.isfile(filepath):
+            with open(filepath, mode='r') as f:
+                yield f.read()
+
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+long_description = "\n\n".join(long_desc(HERE))
 
 
 PACKAGE = "flatpages_x"
@@ -16,12 +24,11 @@ AUTHOR_EMAIL = "cclarke@chrisdev.com"
 URL = "http://github.com/chrisdev/django-flatpages-x"
 VERSION = __import__(PACKAGE).__version__
 
-
 setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
-    long_description=read("README.rst"),
+    long_description=long_description,
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     license="MIT",
