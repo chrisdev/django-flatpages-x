@@ -29,6 +29,8 @@ Contributors
 * `Lendl R Smith <https://github.com/ilendl2>`_
 * `Mikhail Andreev <https://github.com/adw0rd>`_
 * `Eddy <https://github.com/nunchaks>`_
+* `Mahmoud Yaser <https://github.com/myaser`_
+
 Quickstart
 ===========
 Create a virtual environment for your project and activate it::
