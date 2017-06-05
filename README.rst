@@ -25,11 +25,11 @@ parser and saved to the Flatpage.content field
 
 Contributors
 ============
-* `Christopher Clarke <https://github.com/chrisdev>`_
-* `Lendl R Smith <https://github.com/ilendl2>`_
-* `Mikhail Andreev <https://github.com/adw0rd>`_
-* `Eddy <https://github.com/nunchaks>`_
-* `Mahmoud Yaser <https://github.com/myaser`_
+- `Christopher Clarke <https://github.com/chrisdev>`_
+- `Lendl R Smith <https://github.com/ilendl2>`_
+- `Mikhail Andreev <https://github.com/adw0rd>`_
+- `Eddy <https://github.com/nunchaks>`_
+- `Mahmoud Yaser <https://github.com/myaser>`_
 
 Quickstart
 ===========
