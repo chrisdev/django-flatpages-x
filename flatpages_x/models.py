@@ -31,7 +31,7 @@ class FlatPageMeta(models.Model):
 
 
 class FlatPageImage(models.Model):
-    flatpage = models.ForeignKey(FlatPage, related_name='images')
+    flatpage = models.ForeignKey(FlatPage, related_name='images', on_delete=models.CASCADE)
     image_path = ImageField(upload_to="flatpage/%Y/%m/%d")
     url = models.CharField(blank=True, max_length=150)
 
@@ -48,7 +48,7 @@ class Revision(models.Model):
     Note the revision model stores the markdown while the
     flapage contents will store the redered html
     """
-    flatpage = models.ForeignKey(FlatPage, related_name="revisions")
+    flatpage = models.ForeignKey(FlatPage, related_name="revisions", on_delete=models.CASCADE)
     title = models.CharField(max_length=90)
     content_source = models.TextField()
 
