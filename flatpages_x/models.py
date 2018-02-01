@@ -14,7 +14,7 @@ except ImportError:
 
 # Create your models here.
 class FlatPageMeta(models.Model):
-    flatpage = models.OneToOneField(FlatPage, related_name="metadata")
+    flatpage = models.OneToOneField(FlatPage, related_name="metadata", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     keywords = models.CharField(blank=True, max_length=250,
